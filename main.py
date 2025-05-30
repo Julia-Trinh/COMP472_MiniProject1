@@ -11,6 +11,10 @@ Team Members:
 import numpy as np 
 import matplotlib.pyplot as plt 
 from sklearn.datasets import fetch_openml
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.naive_bayes import MultinomialNB
+import seaborn as sns
 
 #Fetching the data 
 # - Dividing by 255, pixel values 
@@ -40,19 +44,16 @@ p=p[:20]
 plot_images(X[p].reshape(-1,28,28), Y[p])
 
 # split 80% for training and 20% for testing ??
-from sklearn.model_selection import train_test_split
 train_X, test_X, train_Y, test_Y = train_test_split(X, Y)
 train_X.shape, test_X.shape
 
 # Train the model
-from sklearn.naive_bayes import MultinomialNB
 cls = MultinomialNB()
 cls.fit(train_X, train_Y)
 
 # Evaluate the model
 cls.score(test_X, test_Y)
 
-from sklearn.metrics import classification_report
 predictions = cls.predict(test_X)
 print(classification_report(test_Y, predictions))
 
@@ -60,3 +61,15 @@ print(classification_report(test_Y, predictions))
 p = np.random.permutation(len(test_X))
 p = p[:20]
 plot_images(test_X[p].reshape(-1, 28, 28), predictions[p])
+
+# Calculate confusion matrix
+cm = confusion_matrix(test_Y, predictions)                              # not sure if predictions is correct param here (check after Ovi's merge)
+
+# Visualize confusion matrix as heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=range(10), yticklabels=range(10))
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted Digit')
+plt.ylabel('Actual Digit')
+plt.show()
