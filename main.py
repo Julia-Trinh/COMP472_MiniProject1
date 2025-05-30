@@ -1,3 +1,13 @@
+"""
+COMP 472 Artificial Intelligence Summer 2025
+Mini Project 1
+
+Team Members:
+- Johnny Dang 40245598
+- Julia Trinh 40245980
+- Oviya Sinnathamby 40249479
+"""
+
 import numpy as np 
 import matplotlib.pyplot as plt 
 from sklearn.datasets import fetch_openml
@@ -24,7 +34,29 @@ def plot_images(images, labels):
         sp.set_title(labels[i])
     plt.show()
 
-#plot first 20
+# plot first 20
 p=np.random.permutation(len(X))
 p=p[:20]
 plot_images(X[p].reshape(-1,28,28), Y[p])
+
+# split 80% for training and 20% for testing ??
+from sklearn.model_selection import train_test_split
+train_X, test_X, train_Y, test_Y = train_test_split(X, Y)
+train_X.shape, test_X.shape
+
+# Train the model
+from sklearn.naive_bayes import MultinomialNB
+cls = MultinomialNB()
+cls.fit(train_X, train_Y)
+
+# Evaluate the model
+cls.score(test_X, test_Y)
+
+from sklearn.metrics import classification_report
+predictions = cls.predict(test_X)
+print(classification_report(test_Y, predictions))
+
+# plot preditions
+p = np.random.permutation(len(test_X))
+p = p[:20]
+plot_images(test_X[p].reshape(-1, 28, 28), predictions[p])
