@@ -50,7 +50,7 @@ train_X.shape, test_X.shape
 
 # Train the model
 from sklearn.linear_model import LogisticRegression
-cls = LogisticRegression()
+cls = LogisticRegression(max_iter=1000)
 cls.fit(train_X, train_Y)
 
 # Evaluate the model
