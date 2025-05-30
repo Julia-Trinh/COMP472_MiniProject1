@@ -63,7 +63,7 @@ p = p[:20]
 plot_images(test_X[p].reshape(-1, 28, 28), predictions[p])
 
 # Calculate confusion matrix
-cm = confusion_matrix(test_Y, predictions)                              # not sure if predictions is correct param here (check after Ovi's merge)
+cm = confusion_matrix(test_Y, predictions)
 
 # Visualize confusion matrix as heatmap
 plt.figure(figsize=(10, 8))
