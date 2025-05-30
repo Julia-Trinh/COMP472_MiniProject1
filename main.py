@@ -23,10 +23,6 @@ mnist= fetch_openml('mnist_784', version=1)
 X=mnist.data.values.astype('float32')/255.0
 Y=mnist.target.values
 
-
-print(X.dtype,Y.dtype)
-print(X.shape,Y.shape)
-
 def plot_images(images, labels):
     nb_cols= min(5, len(images))
     nb_rows= len(images)// nb_cols
