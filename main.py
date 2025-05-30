@@ -41,22 +41,25 @@ plot_images(X[p].reshape(-1,28,28), Y[p])
 
 # split 80% for training and 20% for testing ??
 from sklearn.model_selection import train_test_split
-train_X, test_X, train_Y, test_Y = train_test_split(X, Y)
+train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2, random_state=42)
 train_X.shape, test_X.shape
 
 # Train the model
-from sklearn.naive_bayes import MultinomialNB
-cls = MultinomialNB()
+from sklearn.linear_model import LogisticRegression
+cls = LogisticRegression()
 cls.fit(train_X, train_Y)
 
 # Evaluate the model
 cls.score(test_X, test_Y)
 
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
 predictions = cls.predict(test_X)
 print(classification_report(test_Y, predictions))
+confusionMatrix = confusion_matrix(test_Y, predictions)
 
-# plot preditions
+print(confusionMatrix)
+
+# plot predictions
 p = np.random.permutation(len(test_X))
 p = p[:20]
 plot_images(test_X[p].reshape(-1, 28, 28), predictions[p])
