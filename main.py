@@ -58,9 +58,7 @@ cls.score(test_X, test_Y)
 
 predictions = cls.predict(test_X)
 print(classification_report(test_Y, predictions))
-confusionMatrix = confusion_matrix(test_Y, predictions)
 
-print(confusionMatrix)
 
 # plot predictions
 p = np.random.permutation(len(test_X))
