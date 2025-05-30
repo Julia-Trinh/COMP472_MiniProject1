@@ -14,6 +14,7 @@ from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 import seaborn as sns
 
 #Fetching the data 
@@ -43,13 +44,11 @@ p=np.random.permutation(len(X))
 p=p[:20]
 plot_images(X[p].reshape(-1,28,28), Y[p])
 
-# split 80% for training and 20% for testing ??
-from sklearn.model_selection import train_test_split
+# split 80% for training and 20% for testing
 train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2, random_state=42)
 train_X.shape, test_X.shape
 
 # Train the model
-from sklearn.linear_model import LogisticRegression
 cls = LogisticRegression(max_iter=1000)
 cls.fit(train_X, train_Y)
 
