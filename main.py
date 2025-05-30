@@ -17,12 +17,13 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 import seaborn as sns
 
-#Fetching the data 
-# - Dividing by 255, pixel values 
+# Fetching the data 
+# - Dividing by 255, to normalize pixel values 
 mnist= fetch_openml('mnist_784', version=1)
 X=mnist.data.values.astype('float32')/255.0
 Y=mnist.target.values
 
+# Display images in grid format
 def plot_images(images, labels):
     nb_cols= min(5, len(images))
     nb_rows= len(images)// nb_cols
@@ -35,7 +36,7 @@ def plot_images(images, labels):
         sp.set_title(labels[i])
     plt.show()
 
-# plot first 20
+# plot random 20
 p=np.random.permutation(len(X))
 p=p[:20]
 plot_images(X[p].reshape(-1,28,28), Y[p])
@@ -51,11 +52,11 @@ cls.fit(train_X, train_Y)
 # Evaluate the model
 cls.score(test_X, test_Y)
 
+# Generate predictions and classification report
 predictions = cls.predict(test_X)
 print(classification_report(test_Y, predictions))
 
-
-# plot predictions
+# plot predictions - 20 random test images with predications
 p = np.random.permutation(len(test_X))
 p = p[:20]
 plot_images(test_X[p].reshape(-1, 28, 28), predictions[p])
