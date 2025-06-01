@@ -46,14 +46,14 @@ train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2, random_
 train_X.shape, test_X.shape
 
 # Train the model
-cls = LogisticRegression(max_iter=1000)
-cls.fit(train_X, train_Y)
+model = LogisticRegression(max_iter=1000)
+model.fit(train_X, train_Y)
 
 # Evaluate the model
-cls.score(test_X, test_Y)
+model.score(test_X, test_Y)
 
 # Generate predictions and classification report
-predictions = cls.predict(test_X)
+predictions = model.predict(test_X)
 print(classification_report(test_Y, predictions))
 
 # plot predictions - 20 random test images with predications
